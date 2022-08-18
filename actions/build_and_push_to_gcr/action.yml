@@ -1,0 +1,17 @@
+name: 'Build docker image and push to gcr'
+inputs:
+  repoName:
+    required: true
+runs:
+  using: composite
+  steps:
+    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/master/push_image_to_gcr.sh
+      shell: bash
+    - run: chmod +x push_image_to_gcr.sh
+      shell: bash
+    - run: ./push_image_to_gcr.sh
+      shell: bash
+      env:
+        CLOUDSDK_CORE_DISABLE_PROMPTS: '1'
+        REPO_NAME: ${{inputs.repoName}}
+        GCR_REPO: gcr.io/kubernetes-221218
