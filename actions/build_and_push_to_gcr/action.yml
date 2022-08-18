@@ -5,6 +5,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - run: echo "${GCR_SERVICE_ACCOUNT}" > service-account.json
+      shell: bash
+      env:
+        GCR_SERVICE_ACCOUNT: ${{secrets.GCR_SERVICE_ACCOUNT}}
     - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/master/push_image_to_gcr.sh
       shell: bash
     - run: chmod +x push_image_to_gcr.sh
