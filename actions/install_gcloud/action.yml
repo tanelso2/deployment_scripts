@@ -3,5 +3,6 @@ runs:
   using: composite
   steps:
     - run: curl https://sdk.cloud.google.com | bash
+      shell: bash
       env:
         CLOUDSDK_CORE_DISABLE_PROMPTS: "1"
