@@ -9,4 +9,5 @@ export FULL_DOCKER_TAG="$GCR_REPO/$REPO_NAME:$IMAGE_TAG"
 curl -X PATCH \
     -H "Authorization: Basic ${TCM_KEY}" \
     -d "$FULL_DOCKER_TAG" \
+    --fail \
     https://${TCM_ADDR}/container/${REPO_NAME}/image
