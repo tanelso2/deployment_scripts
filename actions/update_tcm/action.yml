@@ -4,6 +4,8 @@ inputs:
     required: true
   tcmKey:
     required: true
+  tcmAddr:
+    required: true
 runs:
   using: composite
   steps:
@@ -16,5 +18,5 @@ runs:
       env:
         REPO_NAME: ${{inputs.repoName}}
         TCM_KEY: ${{inputs.tcmKey}}
-        TCM_ADDR: https://tcm.thomasnelson.me
+        TCM_ADDR: ${{inputs.tcmAddr}}
         GCR_REPO: gcr.io/kubernetes-221218
