@@ -1,0 +1,15 @@
+name: 'Build docker image'
+inputs:
+  repoName:
+    required: true
+runs:
+  using: composite
+  steps:
+    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/main/build_image.sh
+      shell: bash
+    - run: chmod +x build_image.sh
+      shell: bash
+    - run: ./build_image.sh
+      shell: bash
+      env:
+        REPO_NAME: ${{inputs.repoName}}
