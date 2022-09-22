@@ -1,0 +1,20 @@
+name: 'Update image running in tcm'
+inputs:
+  repoName:
+    required: true
+  tcmKey:
+    required: true
+runs:
+  using: composite
+  steps:
+    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/main/update_tcm.sh
+      shell: bash
+    - run: chmod +x update_tcm.sh
+      shell: bash
+    - run: ./update_tcm.sh
+      shell: bash
+      env:
+        REPO_NAME: ${{inputs.repoName}}
+        TCM_KEY: ${{inputs.tcmKey}}
+        TCM_ADDR: https://tcm.thomasnelson.me
+        GCR_REPO: gcr.io/kubernetes-221218
