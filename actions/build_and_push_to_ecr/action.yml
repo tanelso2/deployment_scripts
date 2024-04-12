@@ -1,0 +1,26 @@
+name: 'Build docker image and push to AWS ECR'
+inputs:
+  repoName:
+    required: true
+  iamRole:
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{inputs.iamRole}}
+        aws-region: us-east-2
+    - uses: aws-actions/amazon-ecr-login@v2
+      id: login-ecr
+    - run: aws sts get-caller-identity
+      shell: bash
+    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/main/push_image_to_ecr.sh
+      shell: bash
+    - run: chmod +x push_image_to_ecr.sh
+      shell: bash
+    - run: ./push_image_to_ecr.sh
+      shell: bash
+      env:
+        REPO_NAME: ${{inputs.repoName}}
+        ECR_REPO: ${{steps.login-ecr.outputs.registry}}
