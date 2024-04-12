@@ -7,12 +7,16 @@ inputs:
 runs:
   using: composite
   steps:
+    - run: echo "Using role to assume ${{inputs.iamRole}}"
+      shell: bash
     - uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: ${{inputs.iamRole}}
         aws-region: us-east-2
     - uses: aws-actions/amazon-ecr-login@v2
       id: login-ecr
+    - run: aws sts get-caller-identity
+      shell: bash
     - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/master/push_image_to_ecr.sh
       shell: bash
     - run: chmod +x push_image_to_ecr.sh
