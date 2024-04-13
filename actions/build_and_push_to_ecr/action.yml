@@ -3,7 +3,8 @@ inputs:
   repoName:
     required: true
   iamRole:
-    required: true
+    required: false
+    default: arn:aws:iam::885847356140:role/${{inputs.repoName}}-deployer
 outputs:
   tag:
     value: ${{steps.push.outputs.tag}}
