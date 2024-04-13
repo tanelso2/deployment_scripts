@@ -3,8 +3,12 @@
 set -x
 set -e
 
-export IMAGE_TAG=gh-$(git rev-parse --short HEAD)
-export FULL_DOCKER_TAG="$GCR_REPO/$REPO_NAME:$IMAGE_TAG"
+if [ ! -z "$IMAGE_TAG" ]; then
+    export FULL_DOCKER_TAG="$IMAGE_TAG"
+else
+    export IMAGE_TAG=gh-$(git rev-parse --short HEAD)
+    export FULL_DOCKER_TAG="$GCR_REPO/$REPO_NAME:$IMAGE_TAG"
+fi
 
 curl -X PATCH \
     -H "Authorization: Basic ${TCM_KEY}" \
