@@ -2,9 +2,12 @@ name: 'Build docker image and push to AWS ECR'
 inputs:
   repoName:
     required: true
-  iamRole:
+  awsAccountId:
     required: false
-    default: arn:aws:iam::885847356140:role/${{repoName}}-deployer
+    default: "885847356140"
+  awsRegion:
+    required: false
+    default: us-east-2
 outputs:
   tag:
     value: ${{steps.push.outputs.tag}}
@@ -13,8 +16,8 @@ runs:
   steps:
     - uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: ${{inputs.iamRole}}
-        aws-region: us-east-2
+        role-to-assume: arn:aws:iam::${{inputs.awsAccountId}}:role/${{inputs.repoName}}-deployer
+        aws-region: ${{inputs.awsRegion}}
     - uses: aws-actions/amazon-ecr-login@v2
       id: login-ecr
     - run: aws sts get-caller-identity
