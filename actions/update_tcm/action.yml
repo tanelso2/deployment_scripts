@@ -9,11 +9,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/main/update_tcm.sh
-      shell: bash
-    - run: chmod +x update_tcm.sh
-      shell: bash
-    - run: ./update_tcm.sh
+    - run: ${{github.action_path}}/update_tcm.sh
       shell: bash
       env:
         REPO_NAME: ${{inputs.repoName}}

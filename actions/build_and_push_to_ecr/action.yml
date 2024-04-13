@@ -15,11 +15,7 @@ runs:
       id: login-ecr
     - run: aws sts get-caller-identity
       shell: bash
-    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/main/push_image_to_ecr.sh
-      shell: bash
-    - run: chmod +x push_image_to_ecr.sh
-      shell: bash
-    - run: ./push_image_to_ecr.sh
+    - run: ${{ github.action_path }}/push_image_to_ecr.sh
       shell: bash
       env:
         REPO_NAME: ${{inputs.repoName}}

@@ -7,16 +7,12 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: tanelso2/deployment_scripts/actions/install_gcloud@master
+    - uses: tanelso2/deployment_scripts/actions/install_gcloud@main
     - run: echo "${GCR_SERVICE_ACCOUNT}" > service-account.json
       shell: bash
       env:
         GCR_SERVICE_ACCOUNT: ${{inputs.serviceAccount}}
-    - run: wget https://raw.githubusercontent.com/tanelso2/deployment_scripts/master/push_image_to_gcr.sh
-      shell: bash
-    - run: chmod +x push_image_to_gcr.sh
-      shell: bash
-    - run: ./push_image_to_gcr.sh
+    - run: ${{ github.action_path }}/push_image_to_gcr.sh
       shell: bash
       env:
         CLOUDSDK_CORE_DISABLE_PROMPTS: '1'
