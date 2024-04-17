@@ -2,6 +2,9 @@ name: 'Build docker image'
 inputs:
   repoName:
     required: true
+outputs:
+  version:
+    value: ${{steps.build.outputs.version}}
 runs:
   using: composite
   steps:

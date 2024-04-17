@@ -5,7 +5,11 @@ set -x
 
 export GOOGLE_APPLICATION_CREDENTIALS="./service-account.json"
 
-export IMAGE_TAG=gh-$(git rev-parse --short HEAD)
+if [ -z "$VERSION" ]; then
+    export IMAGE_TAG=gh-$(git rev-parse --short HEAD)
+else
+    export IMAGE_TAG="${VERSION}"
+fi
 
 gcloud auth activate-service-account --key-file="./service-account.json"
 gcloud auth configure-docker --quiet

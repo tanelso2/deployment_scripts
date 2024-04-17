@@ -4,6 +4,9 @@ inputs:
     required: true
   serviceAccount:
     required: true
+  version:
+    required: false
+    default: ""
 outputs:
   tag:
     value: ${{steps.push.outputs.tag}}
@@ -22,3 +25,4 @@ runs:
         CLOUDSDK_CORE_DISABLE_PROMPTS: '1'
         REPO_NAME: ${{inputs.repoName}}
         GCR_REPO: gcr.io/kubernetes-221218
+        VERSION: ${{inputs.version}}
