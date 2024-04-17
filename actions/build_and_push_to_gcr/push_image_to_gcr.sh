@@ -12,6 +12,8 @@ gcloud auth configure-docker --quiet
 
 export FULL_DOCKER_TAG="$GCR_REPO/$REPO_NAME:$IMAGE_TAG"
 
+echo "tag=${FULL_DOCKER_TAG}" >> $GITHUB_OUTPUT
+
 docker build -t $REPO_NAME:latest .
 
 docker tag $REPO_NAME:latest $FULL_DOCKER_TAG

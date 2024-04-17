@@ -6,6 +6,7 @@ runs:
   using: composite
   steps:
     - run: ${{ github.action_path }}/build_image.sh
+      id: build
       shell: bash
       env:
         REPO_NAME: ${{inputs.repoName}}
